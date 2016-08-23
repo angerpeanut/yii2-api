@@ -40,14 +40,34 @@ class Serialize extends Serializer
 
     protected function serializeModel($model)
     {
-        $res =  parent::serializeModel($model);
+        $res = parent::serializeModel($model);
         return self::result(self::SUCCESS, $res, "获取成功");
     }
 
     protected function serializeDataProvider($dataProvider)
     {
-        $res =  parent::serializeDataProvider($dataProvider);
+        $res = parent::serializeDataProvider($dataProvider);
         return self::result(self::SUCCESS, $res, "获取成功");
+    }
+
+    public function serverError($msg = '')
+    {
+        return self::result(self::INNER_ERROR, '', $msg == '' ? '服务器错误' : $msg);
+    }
+
+    public static function paramError($data = '')
+    {
+        return self::result(self::PARAM_ERROR, $data, '参数错误');
+    }
+
+    public static function error($msg = '', $data = '')
+    {
+        return self::result(self::ERROR, $data, $msg);
+    }
+
+    public static function success($data = '', $msg = '')
+    {
+        return self::result(self::SUCCESS, $data, $msg);
     }
 
     public static function result($status, $data, $msg)
