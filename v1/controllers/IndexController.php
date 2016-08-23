@@ -8,6 +8,7 @@ namespace v1\controllers;
 
 use common\rest\ApiController;
 use common\models\User;
+use common\rest\Serialize;
 
 class IndexController extends ApiController
 {
@@ -20,6 +21,6 @@ class IndexController extends ApiController
 
     public function actionHello()
     {
-        echo "Hello,World!";
+        return Serialize::success("Hello,World!");
     }
 }

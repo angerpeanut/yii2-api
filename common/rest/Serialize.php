@@ -9,8 +9,6 @@ use yii\rest\Serializer;
 
 class Serialize extends Serializer
 {
-    public $result = [];
-
     //返回成功
     const SUCCESS = 200;
 
@@ -50,22 +48,22 @@ class Serialize extends Serializer
         return self::result(self::SUCCESS, $res, "获取成功");
     }
 
-    public function serverError($msg = '')
+    public function serverError($msg = null)
     {
-        return self::result(self::INNER_ERROR, '', $msg == '' ? '服务器错误' : $msg);
+        return self::result(self::INNER_ERROR, null, $msg === null ? '服务器错误' : $msg);
     }
 
-    public static function paramError($data = '')
+    public static function paramError($data = null)
     {
         return self::result(self::PARAM_ERROR, $data, '参数错误');
     }
 
-    public static function error($msg = '', $data = '')
+    public static function error($msg = null, $data = null)
     {
         return self::result(self::ERROR, $data, $msg);
     }
 
-    public static function success($data = '', $msg = '')
+    public static function success($data = null, $msg = null)
     {
         return self::result(self::SUCCESS, $data, $msg);
     }

@@ -25,7 +25,6 @@ class ApiController extends ActiveController
             $this->modelClass = \Yii::createObject($this->modelClass);
         }
         parent::init();
-
         self::initSearchCondition();
     }
 
@@ -68,7 +67,7 @@ class ApiController extends ActiveController
                 'scenario' => $this->createScenario,
             ],
             'update' => [
-                'class' => 'yii\rest\UpdateAction',
+                'class' => UpdateAction::className(),
                 'modelClass' => $this->modelClass,
                 'checkAccess' => [$this, 'checkAccess'],
                 'scenario' => $this->updateScenario,
