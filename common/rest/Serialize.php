@@ -5,6 +5,9 @@
  */
 namespace common\rest;
 
+use yii\base\Arrayable;
+use yii\base\Model;
+use yii\data\DataProviderInterface;
 use yii\rest\Serializer;
 
 class Serialize extends Serializer
@@ -20,6 +23,24 @@ class Serialize extends Serializer
 
     //服务器内部错误
     const INNER_ERROR = 500;
+
+    public function serialize($data)
+    {
+        if ($data instanceof Model && $data->hasErrors()) {
+            return $this->serializeModelErrors($data);
+        } elseif ($data instanceof Arrayable) {
+            return $this->serializeModel($data);
+        } elseif ($data instanceof DataProviderInterface) {
+            return $this->serializeDataProvider($data);
+        } else {
+            if ($data) {
+                return self::success(true, '成功');
+            }else{
+                return self::error('失败',false);
+            }
+        }
+    }
+
 
     protected function serializeModelErrors($model)
     {

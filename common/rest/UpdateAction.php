@@ -20,15 +20,22 @@ class UpdateAction extends \yii\rest\UpdateAction
         $model->scenario = $this->scenario;
         $model->load(Yii::$app->getRequest()->getBodyParams(), '');
         $res = $model->save();
-        if ($res === false && !$model->hasErrors()) {
-            return Serialize::error('未知错误，请重试');
-        } elseif ($res === false && $model->hasErrors()) {
-            foreach ($model->getFirstErrors() as $value) {
-                $error = $value;
-            }
-            return Serialize::error($error);
-        }
+//        if ($model->hasAttribute('errors')) {
+//            echo $model->getAttribute('errors')."\n";
+//        }else{
+//            echo 'n';
+//        }
+//        $model->setAttribute('errors','error');
+//        if ($res === false && !$model->hasErrors()) {
+//            return Serialize::error('未知错误，请重试');
+//        } elseif ($res === false && $model->hasErrors()) {
+//            foreach ($model->getFirstErrors() as $value) {
+//                $error = $value;
+//            }
+//            return Serialize::error($error);
+//        }
+        return $model;
 
-        return Serialize::success($model, '修改成功');
+//        return Serialize::success($model, '修改成功');
     }
 }

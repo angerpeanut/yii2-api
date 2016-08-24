@@ -51,10 +51,19 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['username','required'],
+            ['nickname','required'],
+//            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
         ];
     }
+
+    public function fields()
+    {
+        $fields =  parent::fields();
+        unset($fields['access_token'],$fields['created_at'],$fields['updated_at']);
+        return $fields;
+    }
+
 
     /**
      * @inheritdoc
